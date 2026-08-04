@@ -25,10 +25,10 @@
 
 :root {
   /* the 4 greys used in the After Effects 4-colour gradient */
-  --grey-1: #121212;
-  --grey-2: #090909;
-  --grey-3: #070707;
-  --grey-4: #050505;
+  --grey-1: #000000;
+  --grey-2: #47254d;
+  --grey-3: #2b0519;
+  --grey-4: #0f2541;
 
   --ink: #ffffff;
   --ink-dim: rgba(255, 255, 255, 0.72);
@@ -36,12 +36,16 @@
 
   --logo-size: clamp(44px, 6.2vw, 78px);
   --logo-gap: clamp(14px, 1.8vw, 22px);
-  --shift: 120px; /* overwritten by JS with the measured half-width of the lockup */
+  --shift: 120px;
+  /* overwritten by JS with the measured half-width of the lockup */
 }
 
-* { box-sizing: border-box; }
+* {
+  box-sizing: border-box;
+}
 
-html, body {
+html,
+body {
   height: 100%;
 }
 
@@ -102,7 +106,7 @@ body {
   right: -15%;
   background: radial-gradient(circle at 50% 50%, var(--grey-3), transparent 70%);
   animation: driftB 15s ease-in-out infinite alternate;
-  
+
 }
 
 .blob--c {
@@ -124,30 +128,67 @@ body {
 }
 
 @keyframes driftA {
-  0%   { transform: translate(0, 0) scale(1) rotate(0deg); }
-  50%  { transform: translate(8%, 10%) scale(1.15) rotate(20deg); }
-  100% { transform: translate(-6%, 6%) scale(0.95) rotate(-15deg); }
+  0% {
+    transform: translate(0, 0) scale(1) rotate(0deg);
+  }
+
+  50% {
+    transform: translate(8%, 10%) scale(1.15) rotate(20deg);
+  }
+
+  100% {
+    transform: translate(-6%, 6%) scale(0.95) rotate(-15deg);
+  }
 }
+
 @keyframes driftB {
-  0%   { transform: translate(0, 0) scale(1) rotate(0deg); }
-  50%  { transform: translate(-10%, 8%) scale(0.9) rotate(-18deg); }
-  100% { transform: translate(6%, -8%) scale(1.1) rotate(12deg); }
+  0% {
+    transform: translate(0, 0) scale(1) rotate(0deg);
+  }
+
+  50% {
+    transform: translate(-10%, 8%) scale(0.9) rotate(-18deg);
+  }
+
+  100% {
+    transform: translate(6%, -8%) scale(1.1) rotate(12deg);
+  }
 }
+
 @keyframes driftC {
-  0%   { transform: translate(0, 0) scale(1) rotate(0deg); }
-  50%  { transform: translate(9%, -9%) scale(1.12) rotate(-14deg); }
-  100% { transform: translate(-8%, -4%) scale(0.92) rotate(16deg); }
+  0% {
+    transform: translate(0, 0) scale(1) rotate(0deg);
+  }
+
+  50% {
+    transform: translate(9%, -9%) scale(1.12) rotate(-14deg);
+  }
+
+  100% {
+    transform: translate(-8%, -4%) scale(0.92) rotate(16deg);
+  }
 }
+
 @keyframes driftD {
-  0%   { transform: translate(0, 0) scale(1) rotate(0deg); }
-  50%  { transform: translate(-7%, -10%) scale(1.08) rotate(10deg); }
-  100% { transform: translate(7%, 5%) scale(0.94) rotate(-12deg); }
+  0% {
+    transform: translate(0, 0) scale(1) rotate(0deg);
+  }
+
+  50% {
+    transform: translate(-7%, -10%) scale(1.08) rotate(10deg);
+  }
+
+  100% {
+    transform: translate(7%, 5%) scale(0.94) rotate(-12deg);
+  }
 }
 
 /* Fallback for browsers where backdrop/SVG filters on fixed layers get
    expensive (older mobile Safari): drop the turbulence, keep the drift. */
 @supports not (filter: url(#turbulent-displace)) {
-  .bg-wave__inner { filter: blur(70px); }
+  .bg-wave__inner {
+    filter: blur(70px);
+  }
 }
 
 /* ==========================================================================
@@ -165,6 +206,7 @@ body {
   gap: clamp(20px, 3vh, 34px);
   padding: 8vh 6vw;
   text-align: center;
+  overflow: hidden;
 }
 
 /* ==========================================================================
@@ -183,6 +225,7 @@ body {
   height: var(--logo-size);
   flex: 0 0 auto;
   position: relative;
+  overflow: visible;
 }
 
 .logo-circle-pos,
@@ -200,20 +243,46 @@ body {
   animation: circleSpinGrow 1.05s cubic-bezier(0.33, 0.05, 0.2, 1) 0s both;
 }
 
-.circle-mark { width: 100%; height: 100%; display: block; }
+.circle-mark {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
 .circle-mark path,
-.circle-mark use { fill: var(--ink); }
+.circle-mark use {
+  fill: var(--ink);
+}
 
 @keyframes circleSpinGrow {
-  0%   { opacity: 0; transform: scale(0) rotate(0deg); }
-  10%  { opacity: 1; transform: scale(0.35) rotate(70deg); }
-  40%  { transform: scale(5) rotate(640deg); }
-  100% { opacity: 1; transform: scale(1.5) rotate(1080deg); }
+  0% {
+    opacity: 0;
+    transform: scale(0) rotate(0deg);
+  }
+
+  10% {
+    opacity: 1;
+    transform: scale(0.35) rotate(70deg);
+  }
+
+  40% {
+    transform: scale(5) rotate(640deg);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1.5) rotate(1080deg);
+  }
 }
 
 @keyframes circleMoveLeft {
-  0%   { transform: translateX(var(--shift)); }
-  100% { transform: translateX(0); }
+  0% {
+    transform: translateX(var(--shift));
+  }
+
+  100% {
+    transform: translateX(0);
+  }
 }
 
 /* Text reveal: acts as the "mask" described in the brief — a clip-path
@@ -226,8 +295,13 @@ body {
 }
 
 @keyframes textReveal {
-  0%   { clip-path: inset(0 100% 0 0); }
-  100% { clip-path: inset(0 0% 0 0); }
+  0% {
+    clip-path: inset(0 100% 0 0);
+  }
+
+  100% {
+    clip-path: inset(0 0% 0 0);
+  }
 }
 
 .logo-text {
@@ -317,6 +391,8 @@ body {
   color: var(--ink);
   text-decoration: none;
   transition: transform 0.2s ease, opacity 0.2s ease;
+  flex: 0 0 auto;
+  overflow: hidden;
 }
 
 .icon-btn svg {
@@ -342,8 +418,15 @@ body {
 }
 
 @keyframes fadeUp {
-  0%   { opacity: 0; transform: translateY(20px); }
-  100% { opacity: 1; transform: translateY(0); }
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* ==========================================================================
@@ -351,6 +434,7 @@ body {
    ========================================================================== */
 
 @media (prefers-reduced-motion: reduce) {
+
   .logo-circle-pos,
   .logo-circle-spin,
   .logo-text-mask,
@@ -361,6 +445,7 @@ body {
     transform: none !important;
     clip-path: none !important;
   }
+
   .blob {
     animation: none !important;
   }
@@ -374,11 +459,23 @@ body {
   .links-row {
     gap: 10px 16px;
   }
+
   .links-divider {
     display: none;
   }
+
   .links-group {
     justify-content: center;
     width: 100%;
   }
+}
+
+
+.icon-img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
 }
