@@ -1,0 +1,384 @@
+/* ==========================================================================
+   NANOFRAME — landing page
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   Fonts
+
+   Body font  → "Google Sans Flex" is a real, officially free Google Fonts
+                variable font, loaded via <link> in index.html.
+
+   Logo font  → "Designer Regular" is a licensed display font (not on a
+                public CDN), so it can't be safely hot-linked here. Drop
+                your licensed font files into /fonts and this @font-face
+                will pick them up automatically. Until then, the wordmark
+                falls back to a bold, tightly-tracked, slightly slanted
+                system stack that approximates the look from the video.
+-------------------------------------------------------------------------- */
+@font-face {
+  font-family: "Designer";
+  src: url("./fonts/Designer.otf") format("opentype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  /* the 4 greys used in the After Effects 4-colour gradient */
+  --grey-1: #121212;
+  --grey-2: #090909;
+  --grey-3: #070707;
+  --grey-4: #050505;
+
+  --ink: #ffffff;
+  --ink-dim: rgba(255, 255, 255, 0.72);
+  --ink-faint: rgba(255, 255, 255, 0.38);
+
+  --logo-size: clamp(44px, 6.2vw, 78px);
+  --logo-gap: clamp(14px, 1.8vw, 22px);
+  --shift: 120px; /* overwritten by JS with the measured half-width of the lockup */
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  min-height: 100svh;
+  background: var(--grey-1);
+  color: var(--ink);
+  font-family: 'Google Sans Flex', 'Google Sans', 'Segoe UI', Roboto, Arial, sans-serif;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* ==========================================================================
+   Procedural infinite background wave
+   (4-colour gradient blobs + SVG feTurbulence/feDisplacementMap
+   ≈ After Effects "4-Color Gradient + Motion Tile + Turbulent Displace")
+   ========================================================================== */
+
+.bg-wave {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  background: var(--grey-1);
+}
+
+.bg-wave__inner {
+  position: absolute;
+  inset: -25%;
+  width: 150%;
+  height: 150%;
+  filter: blur(0px) url(#turbulent-displace);
+  will-change: transform;
+  transform: translateZ(0);
+}
+
+.blob {
+  position: absolute;
+  border-radius: 50%;
+  will-change: transform;
+}
+
+.blob--a {
+  width: 70%;
+  height: 70%;
+  top: -10%;
+  left: -10%;
+  background: radial-gradient(circle at 50% 50%, var(--grey-4), transparent 70%);
+  animation: driftA 10s ease-in-out infinite alternate;
+}
+
+.blob--b {
+  width: 65%;
+  height: 65%;
+  top: 15%;
+  right: -15%;
+  background: radial-gradient(circle at 50% 50%, var(--grey-3), transparent 70%);
+  animation: driftB 15s ease-in-out infinite alternate;
+  
+}
+
+.blob--c {
+  width: 60%;
+  height: 60%;
+  bottom: -15%;
+  left: 10%;
+  background: radial-gradient(circle at 50% 50%, var(--grey-2), transparent 72%);
+  animation: driftC 20s ease-in-out infinite alternate;
+}
+
+.blob--d {
+  width: 55%;
+  height: 55%;
+  bottom: -10%;
+  right: 5%;
+  background: radial-gradient(circle at 50% 50%, var(--grey-4), transparent 70%);
+  animation: driftD 25s ease-in-out infinite alternate;
+}
+
+@keyframes driftA {
+  0%   { transform: translate(0, 0) scale(1) rotate(0deg); }
+  50%  { transform: translate(8%, 10%) scale(1.15) rotate(20deg); }
+  100% { transform: translate(-6%, 6%) scale(0.95) rotate(-15deg); }
+}
+@keyframes driftB {
+  0%   { transform: translate(0, 0) scale(1) rotate(0deg); }
+  50%  { transform: translate(-10%, 8%) scale(0.9) rotate(-18deg); }
+  100% { transform: translate(6%, -8%) scale(1.1) rotate(12deg); }
+}
+@keyframes driftC {
+  0%   { transform: translate(0, 0) scale(1) rotate(0deg); }
+  50%  { transform: translate(9%, -9%) scale(1.12) rotate(-14deg); }
+  100% { transform: translate(-8%, -4%) scale(0.92) rotate(16deg); }
+}
+@keyframes driftD {
+  0%   { transform: translate(0, 0) scale(1) rotate(0deg); }
+  50%  { transform: translate(-7%, -10%) scale(1.08) rotate(10deg); }
+  100% { transform: translate(7%, 5%) scale(0.94) rotate(-12deg); }
+}
+
+/* Fallback for browsers where backdrop/SVG filters on fixed layers get
+   expensive (older mobile Safari): drop the turbulence, keep the drift. */
+@supports not (filter: url(#turbulent-displace)) {
+  .bg-wave__inner { filter: blur(70px); }
+}
+
+/* ==========================================================================
+   Layout — always centered regardless of viewport size / aspect ratio
+   ========================================================================== */
+
+.hero {
+  position: relative;
+  min-height: 100svh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(20px, 3vh, 34px);
+  padding: 8vh 6vw;
+  text-align: center;
+}
+
+/* ==========================================================================
+   Logo lockup
+   ========================================================================== */
+
+.logo-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--logo-gap);
+}
+
+.logo-circle-slot {
+  width: var(--logo-size);
+  height: var(--logo-size);
+  flex: 0 0 auto;
+  position: relative;
+}
+
+.logo-circle-pos,
+.logo-circle-spin {
+  position: absolute;
+  inset: 0;
+}
+
+.logo-circle-pos {
+  animation: circleMoveLeft 1.05s cubic-bezier(0.22, 0.9, 0.3, 1) 0.65s both;
+}
+
+.logo-circle-spin {
+  opacity: 0;
+  animation: circleSpinGrow 1.05s cubic-bezier(0.33, 0.05, 0.2, 1) 0s both;
+}
+
+.circle-mark { width: 100%; height: 100%; display: block; }
+.circle-mark path,
+.circle-mark use { fill: var(--ink); }
+
+@keyframes circleSpinGrow {
+  0%   { opacity: 0; transform: scale(0) rotate(0deg); }
+  10%  { opacity: 1; transform: scale(0.35) rotate(70deg); }
+  40%  { transform: scale(5) rotate(640deg); }
+  100% { opacity: 1; transform: scale(1.5) rotate(1080deg); }
+}
+
+@keyframes circleMoveLeft {
+  0%   { transform: translateX(var(--shift)); }
+  100% { transform: translateX(0); }
+}
+
+/* Text reveal: acts as the "mask" described in the brief — a clip-path
+   wipe synced to the circle's leftward move. (A steps() typewriter wipe
+   is offered as an alternative further down, commented out.) */
+.logo-text-mask {
+  overflow: hidden;
+  clip-path: inset(0 100% 0 0);
+  animation: textReveal 1.05s cubic-bezier(0.22, 0.9, 0.3, 1) 0.65s both;
+}
+
+@keyframes textReveal {
+  0%   { clip-path: inset(0 100% 0 0); }
+  100% { clip-path: inset(0 0% 0 0); }
+}
+
+.logo-text {
+  display: inline-block;
+  font-family: "Designer", sans-serif;
+  font-style: italic;
+  font-size: clamp(30px, 7.4vw, 76px);
+  letter-spacing: 0.01em;
+
+  line-height: 1.15;
+  padding: 0.08em 0.18em 0.08em 0.04em;
+  transform: skewX(12deg);
+  color: var(--ink);
+  white-space: nowrap;
+  overflow: visible;
+}
+
+/* --------------------------------------------------------------------------
+   ALTERNATIVE: typewriter-style reveal instead of the clip-path mask.
+   To use it: remove the .logo-text-mask/clip-path rules above, wrap each
+   letter of "NANOFRAME" in its own <span> (see script.js `typewriterMode`),
+   and swap in this block.
+
+.logo-text span {
+  opacity: 0;
+  animation: typeIn 0.05s linear forwards;
+}
+@keyframes typeIn {
+  to { opacity: 1; }
+}
+-------------------------------------------------------------------------- */
+
+/* ==========================================================================
+   Tagline
+   ========================================================================== */
+
+.tagline {
+  margin: 0;
+  max-width: 46rem;
+  font-size: clamp(15px, 2vw, 22px);
+  font-weight: 400;
+  color: var(--ink-dim);
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeUp 0.6s cubic-bezier(0.22, 0.9, 0.3, 1) 1.75s both;
+}
+
+/* ==========================================================================
+   Links row
+   ========================================================================== */
+
+.links-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: clamp(10px, 1.6vw, 18px);
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeUp 0.6s cubic-bezier(0.22, 0.9, 0.3, 1) 2.05s both;
+}
+
+.links-group {
+  display: flex;
+  align-items: center;
+  gap: clamp(8px, 1.2vw, 12px);
+}
+
+.links-label {
+  font-size: clamp(15px, 1.3vw, 15px);
+  color: var(--ink-dim);
+  white-space: nowrap;
+}
+
+.links-divider {
+  width: 1px;
+  height: 22px;
+  background: var(--ink-faint);
+}
+
+.icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: clamp(26px, 2.6vw, 32px);
+  height: clamp(26px, 2.6vw, 32px);
+  color: var(--ink);
+  text-decoration: none;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.icon-btn svg {
+  width: 100%;
+  height: 100%;
+}
+
+.icon-btn--badge {
+  background: var(--ink);
+  border-radius: 50%;
+}
+
+.icon-btn:hover,
+.icon-btn:focus-visible {
+  transform: translateY(-2px) scale(1.08);
+  opacity: 0.88;
+}
+
+.icon-btn:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+@keyframes fadeUp {
+  0%   { opacity: 0; transform: translateY(20px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+/* ==========================================================================
+   Reduced motion
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .logo-circle-pos,
+  .logo-circle-spin,
+  .logo-text-mask,
+  .tagline,
+  .links-row {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+    clip-path: none !important;
+  }
+  .blob {
+    animation: none !important;
+  }
+}
+
+/* ==========================================================================
+   Small screens
+   ========================================================================== */
+
+@media (max-width: 520px) {
+  .links-row {
+    gap: 10px 16px;
+  }
+  .links-divider {
+    display: none;
+  }
+  .links-group {
+    justify-content: center;
+    width: 100%;
+  }
+}
