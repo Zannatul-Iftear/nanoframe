@@ -1,0 +1,34 @@
+# Pages CMS settings — tells https://app.pagescms.org what to show in the editor.
+# Docs: https://pagescms.org/docs/configuration
+
+media:
+  input: images/projects    # where uploaded covers are stored in the repo
+  output: images/projects   # the path written into projects.json
+  categories: [image]
+
+content:
+  - name: projects
+    label: Projects
+    type: file
+    path: data/projects.json
+    format: json
+    list: true              # the file is a list; each item is one tile, in order
+    fields:
+      - name: title
+        label: Title
+        type: string
+        required: true
+      - name: subtitle
+        label: Subtitle
+        type: string
+        description: Keep it short, around 5-6 words.
+      - name: cover
+        label: Cover image
+        type: image
+        required: true
+        description: 16:9 image, 1920x1080 recommended. Other sizes are cropped to fit.
+      - name: link
+        label: Behance link
+        type: string
+        required: true
+        description: Paste the project's address from your browser (behance.net/gallery/...). Behance embed code also works.
