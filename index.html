@@ -38,56 +38,8 @@
     />
   </head>
   <body>
-    <!-- ===================================================================
-     Hidden SVG filter definitions: this is what powers the procedural
-     background. feTurbulence + feDisplacementMap = the "Turbulent
-     Displace" effect from After Effects, applied to the moving
-     4-colour gradient blobs behind it.
-==================================================================== -->
-    <!--
-    <svg width="0" height="0" style="position: absolute" aria-hidden="true">
-      <defs>
-        <filter
-          id="turbulent-displace"
-          x="-20%"
-          y="-20%"
-          width="140%"
-          height="140%"
-        >
-          <feTurbulence
-            type="fractalNoise"
-            baseFrequency="0.010 0.018"
-            numOctaves="2"
-            seed="7"
-            result="noise"
-          />
-          <feDisplacementMap
-            in="SourceGraphic"
-            in2="noise"
-            scale="120"
-            xChannelSelector="R"
-            yChannelSelector="G"
-          />
-        </filter>
-      </defs>
-    </svg>
-    -->
-    
-    <!-- ===================================================================
-     Hero banner: animated background + logo, tagline and socials
-==================================================================== -->
+
     <header class="hero-banner" id="top">
-      <!-- Procedural infinite wave background (now contained in the banner) -->
-<!--        
-      <div class="bg-wave" aria-hidden="true">
-        <div class="bg-wave__inner">
-          <span class="blob blob--a"></span>
-          <span class="blob blob--b"></span>
-          <span class="blob blob--c"></span>
-          <span class="blob blob--d"></span>
-        </div>
-      </div>
-      -->
 
       <div class="container hero-banner__content d-flex flex-column align-items-center justify-content-center text-center">
         <!-- Logo lockup: circle mark + wordmark -->
