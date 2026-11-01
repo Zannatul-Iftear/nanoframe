@@ -1,38 +1,56 @@
 [
   {
-    "title": "Project title",
-    "subtitle": "Short subtitle goes here",
-    "cover": "images/projects/project-01.jpg",
+    "title": "Kevlar Phone Case",
+    "subtitle": "3D Product Animation",
+    "cover": "images/projects/COVER WEBSITE copy.jpg",
+    "link": "https://www.behance.net/gallery/254640395/Rugged-Phone-Case-3D-Product-Animation"
+  },
+  {
+    "title": "The Dance of Makeup",
+    "subtitle": "3D Branding Animation",
+    "cover": "images/projects/WEBSITE copy.jpg",
+    "link": "https://www.behance.net/gallery/254381707/The-Dance-of-Makeup-3D-Branding-Animation"
+  },
+  {
+    "title": "Anker Charging Station",
+    "subtitle": "3D Product Demonstration",
+    "cover": "images/projects/COVER WEBSITE.jpg",
+    "link": "https://www.behance.net/gallery/254605507/Anker-Charging-Station-3D-Product-Demonstration"
+  },
+  {
+    "title": "Compressed Air Blower",
+    "subtitle": "3D Hardware Product Animation",
+    "cover": "images/projects/WEBSITE AIR BLOWER copy-2.jpg",
+    "link": "https://www.behance.net/gallery/254106641/Compressed-Air-Blower-3D-Hardware-Product-Animation"
+  },
+  {
+    "title": "Smart Blender",
+    "subtitle": "3D Product Animation",
+    "cover": "images/projects/WEBSITE BLENDER.jpg",
+    "link": "https://www.behance.net/gallery/254225351/Smart-Blender-3D-Product-Animation"
+  },
+  {
+    "title": " Samsung Smart Fridge",
+    "subtitle": "3D Product Demonstration",
+    "cover": "images/projects/FRIDGE WEBSITE copy.jpg",
+    "link": "https://www.behance.net/gallery/254582083/Samsung-Smart-Fridge-3D-Product-Demonstration"
+  },
+  {
+    "title": "Celsius Fizz Free",
+    "subtitle": "3D Product Animation",
+    "cover": "images/projects/WEBSITE CELSIUS.jpg",
+    "link": "https://www.behance.net/gallery/254714589/Celsius-Fizz-Free-3D-Product-Animation"
+  },
+  {
+    "title": " Colgate",
+    "subtitle": "3D Product Animation",
+    "cover": "images/projects/WEBSITE COLGATE copy.jpg",
     "link": "https://www.behance.net/gallery/254331429/Colgate-3D-Product-Animation"
   },
   {
-    "title": "Project title",
-    "subtitle": "Short subtitle goes here",
-    "cover": "images/projects/project-02.jpg",
-    "link": "https://www.behance.net/gallery/254331429/Colgate-3D-Product-Animation"
-  },
-  {
-    "title": "Project title",
-    "subtitle": "Short subtitle goes here",
-    "cover": "images/projects/project-03.jpg",
-    "link": "https://www.behance.net/gallery/254331429/Colgate-3D-Product-Animation"
-  },
-  {
-    "title": "Project title",
-    "subtitle": "Short subtitle goes here",
-    "cover": "images/projects/project-04.jpg",
-    "link": "https://www.behance.net/gallery/254331429/Colgate-3D-Product-Animation"
-  },
-  {
-    "title": "Project title",
-    "subtitle": "Short subtitle goes here",
-    "cover": "images/projects/project-05.jpg",
-    "link": "https://www.behance.net/gallery/254331429/Colgate-3D-Product-Animation"
-  },
-  {
-    "title": "Tonic - VisionPro",
-    "subtitle": "3D",
-    "cover": "images/projects/project-06.jpg",
-    "link": "https://www.behance.net/gallery/254331429/Colgate-3D-Product-Animation"
+    "title": "iPhone Duo",
+    "subtitle": "3D Product Animation",
+    "cover": "images/projects/WEBSITE COVER copy.jpg",
+    "link": "https://www.behance.net/gallery/254389803/iPhone-Fold-Concept-3D-Product-Animation"
   }
 ]
