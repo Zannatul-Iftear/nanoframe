@@ -546,22 +546,20 @@ body {
   }
 }
 
-/* Text reveal: acts as the "mask" described in the brief — a clip-path
-   wipe synced to the circle's leftward move. (A steps() typewriter wipe
-   is offered as an alternative further down, commented out.) */
 .logo-text-mask {
-  overflow: hidden;
-  clip-path: inset(0 100% 0 0);
+  /* the negative top/bottom insets give the wordmark breathing room so the
+     wipe never trims its top or bottom edge */
+  clip-path: inset(-20% 100% -20% 0);
   animation: textReveal 1.05s cubic-bezier(0.22, 0.9, 0.3, 1) 0.65s both;
 }
 
 @keyframes textReveal {
   0% {
-    clip-path: inset(0 100% 0 0);
+    clip-path: inset(-20% 100% -20% 0);
   }
 
   100% {
-    clip-path: inset(0 0% 0 0);
+    clip-path: inset(-20% 0% -20% 0);
   }
 }
 
